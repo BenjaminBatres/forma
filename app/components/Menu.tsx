@@ -1,0 +1,45 @@
+"use client";
+
+import Link from "next/link";
+import { useState } from "react";
+
+interface ILinks {
+  path: string;
+  name: string;
+}
+
+interface IProps {
+  links: ILinks[];
+}
+export default function Menu({ links }: IProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <div className="lg:hidden">
+      <div
+        className="relative size-8 flex flex-col justify-center gap-3 cursor-pointer"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <div
+          className={`w-full h-0.5 bg-black transition-all duration-300 ease-in-out ${isOpen ? "rotate-45 translate-y-1.75" : "rotate-0 "}`}
+        />
+        <div
+          className={`w-full h-0.5 bg-black transition-all duration-300 ease-in-out ${isOpen ? "-rotate-45 -translate-y-1.75" : "rotate-0"}`}
+        />
+      </div>
+
+      <div
+        className={`absolute top-20 sm:top-28 left-0 w-full ${isOpen ? "max-h-105" : "  pointer-events-none max-h-0"} transition-all duration-500 ease-linear  overflow-hidden`}
+      >
+        <div className="bg-[#FAF9F6] px-4 py-6 border-y border-zinc-300">
+          <ul className="flex flex-col gap-4">
+            {links.map((link, id) => (
+              <li key={id}>
+                <Link href={link.path} className="text-lg">{link.name}</Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+}
