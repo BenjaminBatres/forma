@@ -36,7 +36,7 @@ export default function NavBar() {
     },
   ];
   return (
-    <header className="py-6 px-4">
+    <header className="py-5 px-4">
       <div className="flex justify-between items-center max-w-360 mx-auto">
         <div className="space-y-1.5">
           <h1 className="text-4xl sm:text-5xl font-semibold">

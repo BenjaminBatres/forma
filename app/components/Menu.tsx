@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { LuArrowUpRight } from "react-icons/lu";
 
 interface ILinks {
   path: string;
@@ -28,13 +29,19 @@ export default function Menu({ links }: IProps) {
       </div>
 
       <div
-        className={`absolute top-20 sm:top-28 left-0 w-full ${isOpen ? "max-h-105" : "  pointer-events-none max-h-0"} transition-all duration-500 ease-linear  overflow-hidden`}
+        className={`absolute top-21 sm:top-28 left-0 w-full z-50 ${isOpen ? "max-h-105" : "pointer-events-none max-h-0"} transition-all duration-500 ease-linear  overflow-hidden shadow`}
       >
         <div className="bg-[#FAF9F6] px-4 py-6 border-y border-zinc-300">
           <ul className="flex flex-col gap-4">
             {links.map((link, id) => (
               <li key={id}>
-                <Link href={link.path} className="text-lg">{link.name}</Link>
+                <Link
+                  href={link.path}
+                  className="text-lg flex justify-between items-center"
+                >
+                  {link.name}
+                  <LuArrowUpRight className="text-xl" />
+                </Link>
               </li>
             ))}
           </ul>
