@@ -9,11 +9,11 @@ export default function NavBar() {
     {
       path: "/wishlist",
 
-      icon: <FaRegHeart className="text-xl" />,
+      icon: <FaRegHeart className="text-2xl" />,
     },
     {
       path: "/cart",
-      icon: <TbShoppingBag className="text-2xl" />,
+      icon: <TbShoppingBag className="text-[28px]" />,
     },
   ];
 
@@ -30,33 +30,26 @@ export default function NavBar() {
       path: "/catgories",
       name: "Categories",
     },
-    {
-      path: "/about",
-      name: "About",
-    },
   ];
   return (
-    <header className="py-5 px-4">
-      <div className="flex justify-between items-center max-w-360 mx-auto">
-        <div className="space-y-1.5">
-          <h1 className="text-4xl sm:text-5xl font-semibold">
-            <Link href={"/"}>forma.</Link>
-          </h1>
-          <p className="hidden sm:block text-sm text-center text-[#222]/80">
-            Thoughtfully chosen. Made for everyday.
-          </p>
-        </div>
+    <header className="fixed py-5.5 px-4 z-50 w-full bg-white shadow">
+      <div className="flex justify-between items-center max-w-7xl mx-auto">
+        <h1 className="text-4xl sm:text-5xl font-semibold">
+          <Link href={"/"}>forma.</Link>
+        </h1>
 
-        <ul className="hidden lg:flex gap-8">
+        <ul className="hidden lg:flex gap-8 mt-2.5">
           {links.map((link, id) => (
             <li key={id}>
-              <Link href={link.path}>{link.name}</Link>
+              <Link href={link.path} className="text-[17px]">
+                {link.name}
+              </Link>
             </li>
           ))}
         </ul>
 
-        <div className="flex items-center gap-4">
-          <IoIosSearch className="text-[28px]" />
+        <div className="flex items-center gap-4 mt-2.5">
+          <IoIosSearch className="text-[30px]" />
           {linkIcons.map((linkIcon, id) => (
             <div key={id}>{linkIcon.icon}</div>
           ))}
