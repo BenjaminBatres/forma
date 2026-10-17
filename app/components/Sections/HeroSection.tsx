@@ -43,6 +43,7 @@ export default function HeroSection() {
           src={img}
           alt=""
           quality={100}
+          loading="eager"
           sizes="100vw"
           className={`absolute object-cover object-right sm:object-center w-full h-90 sm:h-full ${currentImage === id ? "opacity-100" : "opacity-0"} duration-300`}
         />
