@@ -1,9 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
-import React from "react";
-import { FaRegHeart } from "react-icons/fa";
-import Rating from "./Rating";
 import Product from "./Product";
+import SkeletonProductCard from "../../SkeletonProductCard";
 
 interface IProduct {
   id: number;
@@ -17,11 +14,12 @@ interface IProduct {
 }
 
 interface IProps {
+  isLoading: boolean;
   products: IProduct[];
   category: string;
 }
 
-export default function Products({ products, category }: IProps) {
+export default function Products({ products, category, isLoading }: IProps) {
   return (
     <div className="space-y-7">
       <div className="flex justify-between items-center">
@@ -31,6 +29,10 @@ export default function Products({ products, category }: IProps) {
         </Link>
       </div>
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {isLoading ? (
+          <SkeletonProductCard productCards={4}/>
+        ) : (
+          <>
         {products
           ?.filter((product) => product.category === category)
           .slice(0, 4)
@@ -44,6 +46,8 @@ export default function Products({ products, category }: IProps) {
               title={product.title}
             />
           ))}
+          </>
+        )}
       </div>
     </div>
   );
