@@ -38,6 +38,7 @@ export default function Products({ products, category, isLoading }: IProps) {
           .slice(0, 4)
           .map((product, id) => (
             <Product
+              id={id}
               key={id}
               discountPercentage={product.discountPercentage}
               price={product.price}
