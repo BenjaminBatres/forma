@@ -28,14 +28,16 @@ export default function Product({
       initial={{ opacity: 0, y: 25 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ delay: 0.15 * id, duration: 0.5 }}
+      transition={{ delay: 0.10 * id, duration: 0.5 }}
       className="rounded-2xl space-y-2 group p-6 shadow-[15px_15px_30px_#bebebe,-15px_-15px_30px_#ffffff] relative overflow-hidden"
     >
       <Link href={"/"}>
         <div className="absolute top-0 left-0 w-16 h-16">
+          {discountPercentage > 5 && (
           <div className="absolute transform -rotate-45 bg-blue-600 text-center text-white font-medium py-1 -left-10 top-8 w-42.5">
             {Math.round(discountPercentage)}% off
           </div>
+          )}
         </div>
 
         <FaRegHeart className="absolute top-6 right-6 text-lg" />
@@ -53,9 +55,11 @@ export default function Product({
         <div className="flex flex-wrap justify-between items-center gap-1">
           <div className="flex gap-2 items-center">
             <p className="font-semibold text-lg">${price}</p>
+            {discountPercentage > 5 && (
             <p className="text-zinc-400 line-through">
               ${Math.round(originalPrice).toFixed(2)}
             </p>
+            )}
           </div>
           <Rating rating={rating} />
         </div>
