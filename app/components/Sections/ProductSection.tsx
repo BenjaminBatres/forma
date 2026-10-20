@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 import Products from "./ui/Products";
-import SkeletonProductCard from "../SkeletonProductCard";
 
 interface IProduct {
   id: number;
