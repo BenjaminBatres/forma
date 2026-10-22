@@ -36,6 +36,7 @@ export default function Menu({ links }: IProps) {
             {links.map((link, id) => (
               <li key={id}>
                 <Link
+                  onClick={() => setIsOpen(false)}
                   href={link.path}
                   className="text-lg flex justify-between items-center"
                 >
