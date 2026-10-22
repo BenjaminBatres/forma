@@ -105,15 +105,18 @@ export default function ShopAllSection() {
   useEffect(() => {
     async function fetchProducts() {
       if (sortByCategory === "All" && sortByFilter) {
+        setIsLoading(true)
         const res = await fetch(`https://dummyjson.com/products`);
         const data = await res.json();
         setProducts(data.products);
         handleSortProducts(sortByOrder);
       } else if (sortByCategory === "All") {
+        setIsLoading(true)
         const res = await fetch("https://dummyjson.com/products");
         const data = await res.json();
         setProducts(data.products);
       } else {
+        setIsLoading(true)
         const res = await fetch(
           `https://dummyjson.com/products/category/${sortByCategory}?sortBy=${sortByFilter}&order=${sortByOrder}`,
         );
