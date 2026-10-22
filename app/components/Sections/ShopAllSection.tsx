@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { motion } from "motion/react";
 import Accordion from "./Accordion";
 import Product from "../ui/Product";
 import SkeletonProductCard from "../SkeletonProductCard";
@@ -105,18 +106,18 @@ export default function ShopAllSection() {
   useEffect(() => {
     async function fetchProducts() {
       if (sortByCategory === "All" && sortByFilter) {
-        setIsLoading(true)
+        setIsLoading(true);
         const res = await fetch(`https://dummyjson.com/products`);
         const data = await res.json();
         setProducts(data.products);
         handleSortProducts(sortByOrder);
       } else if (sortByCategory === "All") {
-        setIsLoading(true)
+        setIsLoading(true);
         const res = await fetch("https://dummyjson.com/products");
         const data = await res.json();
         setProducts(data.products);
       } else {
-        setIsLoading(true)
+        setIsLoading(true);
         const res = await fetch(
           `https://dummyjson.com/products/category/${sortByCategory}?sortBy=${sortByFilter}&order=${sortByOrder}`,
         );
@@ -132,12 +133,26 @@ export default function ShopAllSection() {
       <div className="max-w-7xl mx-auto flex flex-col sm:flex-row gap-15 sm:gap-4 relative">
         <div className="sm:w-[40%] md:w-[30%] sm:mt-40 space-y-7.5 sm:sticky top-30 h-full">
           <div className="sm:hidden space-y-4">
-            <h2 className="text-5xl lg:text-[54px] font-bold">Shop All</h2>
-            <p className="text-Muted text-sm">
+            <motion.h2
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true}}
+              transition={{ duration: 0.5 }}
+              className="text-5xl lg:text-[54px] font-bold"
+            >
+              Shop All
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true}}
+              transition={{ delay: 0.2, duration: 0.5 }}
+              className="text-Muted text-sm"
+            >
               For the way you live, feel, and experience the everyday. Discover
               fragrances, beauty, home furnishings, and everyday goods,
               thoughtfully brought together in one place.
-            </p>
+            </motion.p>
           </div>
           <div className="flex gap-4">
             <p className="text-zinc-400 font-medium">Sort by</p>
@@ -170,12 +185,26 @@ export default function ShopAllSection() {
         </div>
         <div className="sm:w-[60%] md:w-[70%] space-y-15">
           <div className="hidden sm:block space-y-2">
-            <h2 className="text-5xl lg:text-[54px] font-bold">Shop All</h2>
-            <p className="text-Muted text-sm">
+            <motion.h2
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.5 }}
+              className="text-5xl lg:text-[54px] font-bold"
+            >
+              Shop All
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+              className="text-Muted text-sm"
+            >
               For the way you live, feel, and experience the everyday. Discover
               fragrances, beauty, home furnishings, and everyday goods,
               thoughtfully brought together in one place.
-            </p>
+            </motion.p>
           </div>
           <div className="grid md:grid-cols-2 2xl:grid-cols-3 gap-4">
             {isLoading ? (
@@ -208,20 +237,22 @@ export default function ShopAllSection() {
                       sortByFilter={sortByFilter}
                       sortByOrder={sortByOrder}
                     />
-                    <>
-                      {/* Default */}
-                      {products.map((product, id) => (
-                        <Product
-                          id={id}
-                          key={id}
-                          discountPercentage={product.discountPercentage}
-                          price={product.price}
-                          rating={product.rating}
-                          thumbnail={product.thumbnail}
-                          title={product.title}
-                        />
-                      ))}
-                    </>
+                    {!sortByFilter && (
+                      <>
+                        {/* Default */}
+                        {products.map((product, id) => (
+                          <Product
+                            id={id}
+                            key={id}
+                            discountPercentage={product.discountPercentage}
+                            price={product.price}
+                            rating={product.rating}
+                            thumbnail={product.thumbnail}
+                            title={product.title}
+                          />
+                        ))}
+                      </>
+                    )}
                   </>
                 ) : (
                   // Category Products
