@@ -27,7 +27,7 @@ export default function NavBar() {
       name: "Shop All",
     },
     {
-      path: "/catgories",
+      path: "/products/category",
       name: "Categories",
     },
   ];

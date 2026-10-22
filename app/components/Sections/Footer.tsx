@@ -11,7 +11,7 @@ export default function Footer() {
       name: "Shop All",
     },
     {
-      path: "/catgories",
+      path: "/products/category",
       name: "Categories",
     },
   ];
