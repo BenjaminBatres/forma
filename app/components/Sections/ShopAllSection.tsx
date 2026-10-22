@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from "react";
 import Accordion from "./Accordion";
-import Product from "./ui/Product";
+import Product from "../ui/Product";
 import SkeletonProductCard from "../SkeletonProductCard";
 import AccordionFilters from "./AccordionFilters";
-import FilteredProduct from "./ui/FilteredProduct";
+import FilteredProduct from "../ui/FilteredProduct";
 interface IProduct {
   id: number;
   title: string;

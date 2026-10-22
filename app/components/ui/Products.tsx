@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Product from "./Product";
-import SkeletonProductCard from "../../SkeletonProductCard";
+import SkeletonProductCard from "../SkeletonProductCard";
 
 interface IProduct {
   id: number;
