@@ -24,7 +24,7 @@ export default function Products({ products, category, isLoading }: IProps) {
     <div className="space-y-7">
       <div className="flex justify-between items-center">
         <h2 className="capitalize text-4xl font-bold">{category}</h2>
-        <Link href={"/"} className="text-lg font-semibold">
+        <Link href={"/products"} className="text-lg font-semibold">
           View All
         </Link>
       </div>

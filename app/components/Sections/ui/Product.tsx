@@ -27,7 +27,7 @@ export default function Product({
     <motion.div
       initial={{ opacity: 0, y: 25 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: id * 0.1 , duration: 0.6 }}
+      transition={{ delay: 0.2 , duration: 0.6 }}
       className="rounded-2xl space-y-2 group p-6 shadow-[15px_15px_30px_#bebebe,-15px_-15px_30px_#ffffff] relative overflow-hidden"
     >
       <Link href={"/"}>
