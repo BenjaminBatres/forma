@@ -9,21 +9,25 @@ import * as motion from "motion/react-client";
 export default function page() {
   const categories = [
     {
+        id: 'beauty',
       image: HeroImg,
       title: "Beauty",
       imagePostion: "object-right",
     },
     {
+      id: 'fragrances',  
       image: HeroImg2,
       title: "Fragrances",
       imagePostion: "object-center",
     },
     {
+      id: 'groceries',  
       image: HeroImg3,
       title: "Groceries",
       imagePostion: "object-[65%_50%]",
     },
     {
+      id: 'furniture',  
       image: HeroImg4,
       title: "Furniture",
       imagePostion: "object-[65%_50%]",
@@ -66,7 +70,7 @@ export default function page() {
                 className="h-80 md:h-115 relative group overflow-hidden"
                 key={id}
               >
-                <Link href={"/products"}>
+                <Link href={`/products/category/${category.id}`}>
                   <Image
                     src={category.image}
                     alt=""

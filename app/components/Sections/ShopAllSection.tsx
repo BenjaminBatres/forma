@@ -2,11 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
-import Accordion from "./Accordion";
+import Accordion from "../Accordion";
 import Product from "../ui/Product";
 import SkeletonProductCard from "../SkeletonProductCard";
-import AccordionFilters from "./AccordionFilters";
+import AccordionFilters from "../AccordionFilters";
 import FilteredProduct from "../ui/FilteredProduct";
+import { useParams } from "next/navigation";
 interface IProduct {
   id: number;
   title: string;
@@ -19,7 +20,10 @@ interface IProduct {
 }
 
 export default function ShopAllSection() {
-  const [sortByCategory, setSortByCategory] = useState("All");
+  const { id } = useParams();
+  const [sortByCategory, setSortByCategory] = useState<string | string[]>(
+    id || "All",
+  );
   const [sortByFilter, setSortByFilter] = useState("");
   const [sortByOrder, setSortByOrder] = useState("asc");
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
@@ -136,7 +140,7 @@ export default function ShopAllSection() {
             <motion.h2
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true}}
+              viewport={{ once: true }}
               transition={{ duration: 0.5 }}
               className="text-5xl lg:text-[54px] font-bold"
             >
@@ -145,7 +149,7 @@ export default function ShopAllSection() {
             <motion.p
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true}}
+              viewport={{ once: true }}
               transition={{ delay: 0.2, duration: 0.5 }}
               className="text-Muted text-sm"
             >
@@ -159,6 +163,7 @@ export default function ShopAllSection() {
             <p className="capitalize">{sortByCategory}</p>
           </div>
           <Accordion
+            id={id}
             title="Category"
             listItems={[
               "All",
@@ -171,6 +176,7 @@ export default function ShopAllSection() {
             onClick={handleSortByCategory}
             sortBy={sortByCategory}
           />
+
           {filterLists.map((filter, id) => (
             <AccordionFilters
               key={id}
