@@ -40,7 +40,9 @@ export default function Accordion({
             <>
               {listItems.map((item, idx) => (
                 <Link
-                  href={`/products/category/${item}`}
+                  href={
+                    item === "All" ? "/products" : `/products/category/${item}`
+                  }
                   className="flex gap-2 items-center"
                   onClick={() => onClick?.(item)}
                   key={idx}
