@@ -248,8 +248,8 @@ export default function ShopAllSection() {
                         {/* Default */}
                         {products.map((product, id) => (
                           <Product
-                            id={id}
-                            key={id}
+                            key={product.id}
+                            id={product.id}
                             discountPercentage={product.discountPercentage}
                             price={product.price}
                             rating={product.rating}
@@ -263,10 +263,10 @@ export default function ShopAllSection() {
                 ) : (
                   // Category Products
                   <>
-                    {products.map((product, id) => (
+                    {products.map((product) => (
                       <Product
-                        id={id}
-                        key={id}
+                        key={product.id}
+                        id={product.id}
                         discountPercentage={product.discountPercentage}
                         price={product.price}
                         rating={product.rating}

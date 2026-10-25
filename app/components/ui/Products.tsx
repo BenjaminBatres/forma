@@ -36,10 +36,10 @@ export default function Products({ products, category, isLoading }: IProps) {
         {products
           ?.filter((product) => product.category === category)
           .slice(0, 4)
-          .map((product, id) => (
+          .map((product) => (
             <Product
-              id={id}
-              key={id}
+              id={product.id}
+              key={product.id}
               discountPercentage={product.discountPercentage}
               price={product.price}
               rating={product.rating}

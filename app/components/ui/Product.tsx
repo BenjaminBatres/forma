@@ -30,7 +30,7 @@ export default function Product({
       transition={{ delay: 0.2 , duration: 0.6 }}
       className="rounded-2xl space-y-2 group p-6 shadow-[15px_15px_30px_#bebebe,-15px_-15px_30px_#ffffff] relative overflow-hidden"
     >
-      <Link href={"/"}>
+      <Link href={`/products/${id}`}>
         <div className="absolute top-0 left-0 w-16 h-16">
           {discountPercentage > 5 && (
             <div className="absolute transform -rotate-45 bg-blue-600 text-center text-white font-medium py-1 -left-10 top-8 w-42.5">
