@@ -1,4 +1,9 @@
 import Image from "next/image";
+import { FaRegHeart } from "react-icons/fa";
+import Rating from "../ui/Rating";
+import SkeletonBox from "../SkeletonBox";
+import ProductDetailsSkeleton from "../ui/ProductDetailsSkeleton";
+import { motion } from "motion/react";
 import { MdDiscount } from "react-icons/md";
 
 interface IProduct {
@@ -14,29 +19,15 @@ interface IProduct {
   returnPolicy: string;
   warrantyInformation: string;
 }
-import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import { FaRegHeart } from "react-icons/fa";
-import Rating from "../ui/Rating";
-import SkeletonBox from "../SkeletonBox";
-import ProductDetailsSkeleton from "../ui/ProductDetailsSkeleton";
-import { motion } from "motion/react";
 
-export default function ProductDetailsSection() {
-  const { id } = useParams<{ id: string }>();
-  const [product, setProduct] = useState<IProduct | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  useEffect(() => {
-    async function fetchProducts() {
-      const res = await fetch(`https://dummyjson.com/products/${id}`);
-      const data = await res.json();
-      setProduct(data);
-      setIsLoading(false);
-    }
-    fetchProducts();
-  }, []);
+interface IProps {
+  product: IProduct | null;
+  isLoading: boolean;
+}
+
+export default function ProductDetailsSection({ isLoading, product }: IProps) {
   return (
-    <section className="pt-30 pb-20 px-5">
+    <section className="pt-30 md:pb-5 lg:pb-20 px-5">
       <div className="max-w-7xl mx-auto grid lg:grid-cols-[1.45fr_1fr] gap-7.5">
         {isLoading ? (
           <>
