@@ -53,8 +53,7 @@ export default function ProductDetailsSection() {
         ) : (
           <motion.div
             initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="bg-white shadow"
           >
@@ -79,8 +78,7 @@ export default function ProductDetailsSection() {
               {/* Title and Category*/}
               <motion.div
                 initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
                 className="space-y-4"
               >
@@ -99,8 +97,7 @@ export default function ProductDetailsSection() {
               {/* Price and Rating */}
               <motion.div
                 initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1, duration: 0.6 }}
                 className="space-y-3"
               >
@@ -142,8 +139,7 @@ export default function ProductDetailsSection() {
               {/* Description */}
               <motion.div
                 initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.6 }}
               >
                 <p className="text-lg font-bold">Description:</p>
@@ -153,8 +149,7 @@ export default function ProductDetailsSection() {
               {/* Input and Cart */}
               <motion.div
                 initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3, duration: 0.6 }}
                 className="space-y-2.5"
               >
@@ -171,8 +166,7 @@ export default function ProductDetailsSection() {
               {/* Shipping Info */}
               <motion.div
                 initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4, duration: 0.6 }}
               >
                 <div className="pl-5">
