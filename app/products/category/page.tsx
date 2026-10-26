@@ -9,25 +9,25 @@ import * as motion from "motion/react-client";
 export default function page() {
   const categories = [
     {
-        id: 'beauty',
+      id: "beauty",
       image: HeroImg,
       title: "Beauty",
       imagePostion: "object-right",
     },
     {
-      id: 'fragrances',  
+      id: "fragrances",
       image: HeroImg2,
       title: "Fragrances",
       imagePostion: "object-center",
     },
     {
-      id: 'groceries',  
+      id: "groceries",
       image: HeroImg3,
       title: "Groceries",
       imagePostion: "object-[65%_50%]",
     },
     {
-      id: 'furniture',  
+      id: "furniture",
       image: HeroImg4,
       title: "Furniture",
       imagePostion: "object-[65%_50%]",
