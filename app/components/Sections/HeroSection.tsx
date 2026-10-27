@@ -45,7 +45,7 @@ export default function HeroSection() {
           quality={100}
           loading="eager"
           sizes="100vw"
-          className={`absolute object-cover object-right sm:object-center w-full h-90 sm:h-full ${currentImage === id ? "opacity-100" : "opacity-0"} duration-300`}
+          className={`select-none absolute object-cover object-right sm:object-center w-full h-90 sm:h-full ${currentImage === id ? "opacity-100" : "opacity-0"} duration-300`}
         />
       ))}
       <AnimatePresence mode="wait">
@@ -65,7 +65,7 @@ export default function HeroSection() {
               opacity: 0,
             },
           }}
-          className="sm:absolute top-[43%] w-full sm:px-5 pt-90 pb-50 sm:pt-0"
+          className="sm:absolute top-[43%] w-full sm:px-5 pt-90 pb-[30vh] small-devices:pb-50 sm:pt-0"
         >
           <motion.div
             initial={{ opacity: 0, y: 50 }}
