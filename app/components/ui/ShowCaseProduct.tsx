@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { motion } from "motion/react";
 import { FaRegHeart } from "react-icons/fa";
 interface IProduct {
   thumbnail: string;
@@ -21,7 +20,7 @@ export default function ShowCaseProduct({
   return (
     <a
       href={`/products/${id}`}
-      className="rounded-2xl space-y-2 group pt-6 pb-3 px-6 shadow-[5px_1px_10px_#bebebe] relative overflow-hidden block"
+      className="rounded-2xl flex flex-col sm:max-h-full gap-2 group pt-6 pb-3 px-6 shadow-[5px_1px_10px_#bebebe] relative overflow-hidden"
     >
       <div className="absolute top-0 left-0 w-16 h-16">
         {discountPercentage > 5 && (
@@ -42,12 +41,12 @@ export default function ShowCaseProduct({
           className="group-hover:scale-110 duration-300 "
         />
       </figure>
-      <h3 className="text-lg font-semibold line-clamp-1">{title}</h3>
+      <h3 className="text-lg font-semibold line-clamp-2 sm:line-clamp-1">{title}</h3>
       <div className="flex gap-2 items-center">
         <p className="font-semibold">${price}</p>
         {discountPercentage > 5 && (
           <p className="text-zinc-400 line-through">
-            ${Math.round(originalPrice).toFixed(2)}
+            ${Math.round(originalPrice)}
           </p>
         )}
       </div>

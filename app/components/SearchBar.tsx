@@ -70,10 +70,10 @@ export default function SearchBar() {
         onClick={() => setIsOpen(!isOpen)}
       />
       <div
-        className={`absolute top-0 lg:top-20 left-0 w-full min-h-screen z-55 xl:min-h-auto bg-white ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"} duration-300`}
+        className={`absolute top-0 xl:top-20 left-0 w-full min-h-screen z-55 xl:min-h-auto bg-white ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"} duration-300`}
       >
         <div className="space-y-7.5 xl:shadow-sm xl:pb-10">
-          <div className="px-4 pt-8 lg:pt-5 ">
+          <div className="px-4 pt-8 lg:pt-5">
             <div className="max-w-7xl mx-auto">
               <div className="flex items-center gap-4 lg:gap-7.5">
                 <div className="relative w-full">
@@ -101,7 +101,7 @@ export default function SearchBar() {
                     <h2 className="text-2xl font-semibold md:w-[35%]">
                       Results for: "{searchTerm}"
                     </h2>
-                    <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:flex gap-4">
+                    <div className="grid small-devices:grid-cols-2 items-stretch md:grid-cols-3 lg:flex gap-4">
                       {searchedProducts.slice(0, 4).map((product) => (
                         <ShowCaseProduct
                           key={product.id}
@@ -121,7 +121,7 @@ export default function SearchBar() {
               </div>
             </div>
           ) : (
-            <div className="px-4">
+            <div className="px-4 pb-30 overflow-auto h-lvh xl:h-auto">
               <div className="max-w-7xl mx-auto">
                 <div className="flex flex-col xl:flex-row justify-between gap-y-2">
                   <div className="flex-1 space-y-2.5">
@@ -157,7 +157,7 @@ export default function SearchBar() {
                       }}
                       pagination={true}
                       modules={[Pagination]}
-                      className="xl:w-220 h-112 sm:h-117 lg:h-110 xl:h-auto"
+                      className="xl:w-220 h-112 sm:h-117 lg:h-110 xl:h-auto [&_.swiper-wrapper]:items-stretch!"
                     >
                       {isLoading ? (
                         categories.map((_, id) => (
@@ -168,7 +168,7 @@ export default function SearchBar() {
                       ) : (
                         <>
                           {categories.map((category) => (
-                            <SwiperSlide className="py-2 pr-2">
+                            <SwiperSlide className="h-auto py-2 pr-2">
                               <CategoryShowcaseSlide
                                 key={category}
                                 products={products}
@@ -179,7 +179,6 @@ export default function SearchBar() {
                         </>
                       )}
                     </Swiper>
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
                   </div>
                 </div>
               </div>
