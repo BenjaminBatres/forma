@@ -3,6 +3,7 @@ import { FaRegHeart } from "react-icons/fa";
 import { TbShoppingBag } from "react-icons/tb";
 import Link from "next/link";
 import Menu from "./Menu";
+import SearchBar from "./SearchBar";
 
 export default function NavBar() {
   const linkIcons = [
@@ -41,15 +42,15 @@ export default function NavBar() {
         <ul className="hidden lg:flex gap-8 mt-2.5">
           {links.map((link, id) => (
             <li key={id}>
-              <Link href={link.path} className="text-[17px]">
+              <a href={link.path} className="text-[17px]">
                 {link.name}
-              </Link>
+              </a>
             </li>
           ))}
         </ul>
 
         <div className="flex items-center gap-4 mt-2.5">
-          <IoIosSearch className="text-[30px]" />
+          <SearchBar />
           {linkIcons.map((linkIcon, id) => (
             <div key={id}>{linkIcon.icon}</div>
           ))}
