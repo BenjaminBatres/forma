@@ -19,6 +19,10 @@ interface IProduct {
   category: string;
 }
 
+interface WishlistItem {
+  id: number;
+}
+
 export default function ShopAllSection() {
   const { id } = useParams();
   const [sortByCategory, setSortByCategory] = useState<string | string[]>(
@@ -27,7 +31,27 @@ export default function ShopAllSection() {
   const [sortByFilter, setSortByFilter] = useState("");
   const [sortByOrder, setSortByOrder] = useState("asc");
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
+  const [wishlist, setWishlist] = useState<WishlistItem[]>(() => {
+  if (typeof window === "undefined") return [];
 
+  return JSON.parse(localStorage.getItem("wishlist") || "[]");
+});
+
+const handleWishlistToggle = (id: number) => {
+  setWishlist((prevWishlist) => {
+    const alreadySaved = prevWishlist.some(
+      (item) => item.id === id
+    );
+
+    const updatedWishlist = alreadySaved
+      ? prevWishlist.filter((item) => item.id !== id)
+      : [...prevWishlist, { id }];
+
+    localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
+
+    return updatedWishlist;
+  });
+};
   const [products, setProducts] = useState<IProduct[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -255,6 +279,8 @@ export default function ShopAllSection() {
                             rating={product.rating}
                             thumbnail={product.thumbnail}
                             title={product.title}
+                            wishlist={wishlist}
+                            handleWishlistToggle={handleWishlistToggle}
                           />
                         ))}
                       </>
@@ -272,6 +298,8 @@ export default function ShopAllSection() {
                         rating={product.rating}
                         thumbnail={product.thumbnail}
                         title={product.title}
+                        wishlist={wishlist}
+                        handleWishlistToggle={handleWishlistToggle}
                       />
                     ))}
                   </>

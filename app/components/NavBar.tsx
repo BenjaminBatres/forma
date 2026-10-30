@@ -52,7 +52,7 @@ export default function NavBar() {
         <div className="flex items-center gap-4 mt-2.5">
           <SearchBar />
           {linkIcons.map((linkIcon, id) => (
-            <div key={id}>{linkIcon.icon}</div>
+            <Link href={linkIcon.path} key={id}>{linkIcon.icon}</Link>
           ))}
           <Menu links={links} />
         </div>

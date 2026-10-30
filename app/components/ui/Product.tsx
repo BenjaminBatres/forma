@@ -1,9 +1,12 @@
 import Image from "next/image";
 import { FaRegHeart } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa6";
 import Rating from "./Rating";
 import Link from "next/link";
-import { motion, Variant, Variants } from "motion/react";
-
+import { motion } from "motion/react";
+interface WishlistItem {
+  id: number;
+}
 interface IProduct {
   thumbnail: string;
   title: string;
@@ -11,6 +14,8 @@ interface IProduct {
   discountPercentage: number;
   rating: number;
   id: number;
+  wishlist: WishlistItem[]
+  handleWishlistToggle: (id: number) => void
 }
 
 export default function Product({
@@ -20,16 +25,25 @@ export default function Product({
   rating,
   thumbnail,
   title,
+  wishlist,
+  handleWishlistToggle
 }: IProduct) {
   const discountPercent = discountPercentage / 100;
   const originalPrice = price / (1 - discountPercent);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 25 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.2 , duration: 0.6 }}
+      transition={{ delay: 0.2, duration: 0.6 }}
       className="rounded-2xl space-y-2 group p-6 shadow-[15px_15px_30px_#bebebe,-15px_-15px_30px_#ffffff] relative overflow-hidden"
     >
+      <button
+        onClick={() => handleWishlistToggle(id)}
+        className="absolute top-6 right-6 text-lg z-10 cursor-pointer"
+      >
+        {wishlist.some((item) => item.id === id) ? <FaHeart /> : <FaRegHeart />}
+      </button>
       <Link href={`/products/${id}`}>
         <div className="absolute top-0 left-0 w-16 h-16">
           {discountPercentage > 5 && (
@@ -38,8 +52,6 @@ export default function Product({
             </div>
           )}
         </div>
-
-        <FaRegHeart className="absolute top-6 right-6 text-lg" />
         <figure className="rounded-2xl flex justify-center">
           <Image
             src={thumbnail.toString()}

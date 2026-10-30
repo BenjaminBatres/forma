@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Product from "./Product";
 
 interface IProduct {
@@ -17,13 +18,35 @@ interface IProps {
   sortByOrder: string;
   products: IProduct[];
 }
+
+interface WishlistItem {
+  id: number;
+}
 export default function FilteredProduct({
   filterName,
   sortByFilter,
   sortByOrder,
   products,
-  
 }: IProps) {
+  const [wishlist, setWishlist] = useState<WishlistItem[]>(() => {
+    if (typeof window === "undefined") return [];
+
+    return JSON.parse(localStorage.getItem("wishlist") || "[]");
+  });
+
+  const handleWishlistToggle = (id: number) => {
+    setWishlist((prevWishlist) => {
+      const alreadySaved = prevWishlist.some((item) => item.id === id);
+
+      const updatedWishlist = alreadySaved
+        ? prevWishlist.filter((item) => item.id !== id)
+        : [...prevWishlist, { id }];
+
+      localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
+
+      return updatedWishlist;
+    });
+  };
   const sortProducts = (
     products: IProduct[],
     sortByFilter: keyof IProduct,
@@ -59,6 +82,8 @@ export default function FilteredProduct({
           rating={product.rating}
           thumbnail={product.thumbnail}
           discountPercentage={product.discountPercentage}
+          wishlist={wishlist}
+          handleWishlistToggle={handleWishlistToggle}
         />
       ))}
     </>

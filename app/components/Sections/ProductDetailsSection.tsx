@@ -5,6 +5,8 @@ import SkeletonBox from "../SkeletonBox";
 import ProductDetailsSkeleton from "../ui/ProductDetailsSkeleton";
 import { motion } from "motion/react";
 import { MdDiscount } from "react-icons/md";
+import { useState } from "react";
+import { FaHeart } from "react-icons/fa6";
 
 interface IProduct {
   images: string[];
@@ -25,7 +27,29 @@ interface IProps {
   isLoading: boolean;
 }
 
+interface WishlistItem {
+  id: number;
+}
+
 export default function ProductDetailsSection({ isLoading, product }: IProps) {
+  const [wishlist, setWishlist] = useState<WishlistItem[]>(() => {
+    if (typeof window === "undefined") return [];
+
+    return JSON.parse(localStorage.getItem("wishlist") || "[]");
+  });
+  const handleWishlistToggle = (id: number) => {
+    setWishlist((prevWishlist) => {
+      const alreadySaved = prevWishlist.some((item) => item.id === id);
+
+      const updatedWishlist = alreadySaved
+        ? prevWishlist.filter((item) => item.id !== id)
+        : [...prevWishlist, { id }];
+
+      localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
+
+      return updatedWishlist;
+    });
+  };
   return (
     <section className="pt-30 md:pb-5 lg:pb-20 px-5">
       <div className="max-w-7xl mx-auto grid lg:grid-cols-[1.45fr_1fr] gap-7.5">
@@ -77,7 +101,18 @@ export default function ProductDetailsSection({ isLoading, product }: IProps) {
                   <h2 className="text-2xl md:text-[28px] font-semibold">
                     {product?.title}
                   </h2>
-                  <FaRegHeart className="text-lg mt-1" />
+                  {product && (
+                    <button
+                      className="text-lg mt-1 cursor-pointer"
+                      onClick={() => handleWishlistToggle(product?.id)}
+                    >
+                      {wishlist.some((item) => item.id === product?.id) ? (
+                        <FaHeart />
+                      ) : (
+                        <FaRegHeart />
+                      )}
+                    </button>
+                  )}
                 </div>
                 <p className="text-[#222]/60 font-medium">
                   Category:{" "}

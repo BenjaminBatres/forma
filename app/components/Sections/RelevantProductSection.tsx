@@ -20,10 +20,31 @@ interface IProps {
   id: string;
   category: string | undefined;
 }
-
+interface WishlistItem {
+  id: number;
+}
 export default function RelevantProductSection({ category, id }: IProps) {
   const [products, setProducts] = useState<IProduct[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+   const [wishlist, setWishlist] = useState<WishlistItem[]>(() => {
+      if (typeof window === "undefined") return [];
+  
+      return JSON.parse(localStorage.getItem("wishlist") || "[]");
+    });
+  
+    const handleWishlistToggle = (id: number) => {
+      setWishlist((prevWishlist) => {
+        const alreadySaved = prevWishlist.some((item) => item.id === id);
+  
+        const updatedWishlist = alreadySaved
+          ? prevWishlist.filter((item) => item.id !== id)
+          : [...prevWishlist, { id }];
+  
+        localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
+  
+        return updatedWishlist;
+      });
+    };
   useEffect(() => {
     async function fetchProducts() {
       const res = await fetch("https://dummyjson.com/products");
@@ -67,6 +88,8 @@ export default function RelevantProductSection({ category, id }: IProps) {
                     rating={product.rating}
                     thumbnail={product.thumbnail}
                     title={product.title}
+                    wishlist={wishlist}
+                    handleWishlistToggle={handleWishlistToggle}
                   />
                 ))}
             </>
