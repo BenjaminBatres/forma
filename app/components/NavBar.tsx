@@ -1,23 +1,10 @@
 import { FaRegHeart } from "react-icons/fa";
-import { TbShoppingBag } from "react-icons/tb";
 import Link from "next/link";
 import Menu from "./Menu";
 import SearchBar from "./SearchBar";
 import AddToCart from "./AddToCart";
 
 export default function NavBar() {
-  const linkIcons = [
-    {
-      path: "/wishlist",
-
-      icon: <FaRegHeart className="text-2xl" />,
-    },
-    {
-      path: "/cart",
-      icon: <TbShoppingBag className="text-[28px]" />,
-    },
-  ];
-
   const links = [
     {
       path: "/",
