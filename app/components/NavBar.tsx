@@ -1,9 +1,9 @@
-import { IoIosSearch } from "react-icons/io";
 import { FaRegHeart } from "react-icons/fa";
 import { TbShoppingBag } from "react-icons/tb";
 import Link from "next/link";
 import Menu from "./Menu";
 import SearchBar from "./SearchBar";
+import AddToCart from "./AddToCart";
 
 export default function NavBar() {
   const linkIcons = [
@@ -51,9 +51,10 @@ export default function NavBar() {
 
         <div className="flex items-center gap-4 mt-2.5">
           <SearchBar />
-          {linkIcons.map((linkIcon, id) => (
-            <Link href={linkIcon.path} key={id}>{linkIcon.icon}</Link>
-          ))}
+          <Link href={"/wishlist"}>
+            <FaRegHeart className="text-2xl" />
+          </Link>
+          <AddToCart />
           <Menu links={links} />
         </div>
       </div>
