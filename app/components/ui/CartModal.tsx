@@ -41,7 +41,7 @@ export default function CartModal({ isModalOpen, setIsModalOpen }: IProps) {
         {cartItems.length > 0 ? (
           <>
             <div
-              className={`py-3 px-6 overflow-y-auto ${cartItems.length > 3 ? "h-72" : "h-auto"}`}
+              className={`py-3 px-6 overflow-y-auto ${cartItems.length > 2 ? "h-75" : "h-auto"}`}
             >
               {cartItems.map((item) => (
                 <div
