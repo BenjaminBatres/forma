@@ -59,7 +59,7 @@ export default function page() {
             Wishlist
           </h2>
           <div className="flex flex-col items-center gap-5">
-            <p>Seems like you have no items on your wishlist yet!</p>
+            <p className="text-center">Seems like you have no items on your wishlist yet!</p>
             <Link
               href={"/products"}
               className="py-3 px-4 bg-white font-semibold rounded shadow-sm"
