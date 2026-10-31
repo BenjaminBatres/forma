@@ -17,6 +17,7 @@ interface IProduct {
   shippingInformation: string;
   returnPolicy: string;
   warrantyInformation: string;
+  stock: number;
 }
 
 export default function ProductPage() {

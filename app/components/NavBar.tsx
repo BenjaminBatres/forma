@@ -29,9 +29,9 @@ export default function NavBar() {
         <ul className="hidden lg:flex gap-8 mt-2.5">
           {links.map((link, id) => (
             <li key={id}>
-              <a href={link.path} className="text-[17px]">
+              <Link href={link.path} className="text-[17px]">
                 {link.name}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>

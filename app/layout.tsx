@@ -3,6 +3,7 @@ import { DM_Sans, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Sections/Footer";
+import { ReduxProvider } from "./components/ReduxProvider";
 
 const PlayfairDisplay = Playfair_Display({
   variable: "--font-playfair",
@@ -26,10 +27,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${PlayfairDisplay.variable} ${dmSans.variable} h-full antialiased`}
     >
       <body>
-        <NavBar />
-        {children}
-        <Footer />
-        </body>
+        <ReduxProvider>
+          <NavBar />
+          {children}
+          <Footer />
+        </ReduxProvider>
+      </body>
     </html>
   );
 }

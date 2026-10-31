@@ -7,9 +7,14 @@ import { motion } from "motion/react";
 import { MdDiscount } from "react-icons/md";
 import { useState } from "react";
 import { FaHeart } from "react-icons/fa6";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/app/redux/store";
+import { addToCart } from "@/app/redux/counterSlice";
+import CartModal from "../ui/CartModal";
 
 interface IProduct {
   images: string[];
+  thumbnail: string;
   title: string;
   price: number;
   discountPercentage: number;
@@ -20,6 +25,7 @@ interface IProduct {
   shippingInformation: string;
   returnPolicy: string;
   warrantyInformation: string;
+  stock: number;
 }
 
 interface IProps {
@@ -32,11 +38,30 @@ interface WishlistItem {
 }
 
 export default function ProductDetailsSection({ isLoading, product }: IProps) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [wishlist, setWishlist] = useState<WishlistItem[]>(() => {
     if (typeof window === "undefined") return [];
 
     return JSON.parse(localStorage.getItem("wishlist") || "[]");
   });
+  const [count, setCount] = useState(1);
+  const dispatch = useDispatch();
+
+  const handleAddToCart = () => {
+    if (count > 0) {
+      setIsModalOpen(true);
+      dispatch(
+        addToCart({
+          id: product?.id,
+          name: product?.title,
+          price: product?.price,
+          quantity: count,
+          image: product?.thumbnail,
+        }),
+      );
+    }
+  };
+
   const handleWishlistToggle = (id: number) => {
     setWishlist((prevWishlist) => {
       const alreadySaved = prevWishlist.some((item) => item.id === id);
@@ -51,166 +76,175 @@ export default function ProductDetailsSection({ isLoading, product }: IProps) {
     });
   };
   return (
-    <section className="pt-30 md:pb-5 lg:pb-20 px-5">
-      <div className="max-w-7xl mx-auto grid lg:grid-cols-[1.45fr_1fr] gap-7.5">
-        {isLoading ? (
-          <>
-            <div className="hidden md:block">
-              <SkeletonBox height={740} />
-            </div>
-            <div className="hidden sm:block md:hidden">
-              <SkeletonBox height={500} />
-            </div>
-            <div className="sm:hidden">
-              <SkeletonBox height={300} />
-            </div>
-          </>
-        ) : (
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="bg-white shadow"
-          >
-            {product && (
-              <Image
-                src={product?.images[0]}
-                alt=""
-                loading="eager"
-                width={1000}
-                height={1000}
-                className="sm:h-150 md:h-full object-cover"
-              />
-            )}
-          </motion.div>
-        )}
-
-        <div className="space-y-6">
+    <>
+      <CartModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+      <section className="pt-30 md:pb-5 lg:pb-20 px-5">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-[1.45fr_1fr] gap-7.5">
           {isLoading ? (
-            <ProductDetailsSkeleton />
-          ) : (
             <>
-              {/* Title and Category*/}
-              <motion.div
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="space-y-4"
-              >
-                <div className="flex justify-between items-center flex-wrap gap-3">
-                  <h2 className="text-2xl md:text-[28px] font-semibold">
-                    {product?.title}
-                  </h2>
-                  {product && (
-                    <button
-                      className="text-lg mt-1 cursor-pointer"
-                      onClick={() => handleWishlistToggle(product?.id)}
-                    >
-                      {wishlist.some((item) => item.id === product?.id) ? (
-                        <FaHeart />
-                      ) : (
-                        <FaRegHeart />
-                      )}
-                    </button>
-                  )}
-                </div>
-                <p className="text-[#222]/60 font-medium">
-                  Category:{" "}
-                  <span className="capitalize">{product?.category}</span>
-                </p>
-              </motion.div>
+              <div className="hidden md:block">
+                <SkeletonBox height={740} />
+              </div>
+              <div className="hidden sm:block md:hidden">
+                <SkeletonBox height={500} />
+              </div>
+              <div className="sm:hidden">
+                <SkeletonBox height={300} />
+              </div>
+            </>
+          ) : (
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="bg-white shadow"
+            >
+              {product && (
+                <Image
+                  src={product?.images[0]}
+                  alt=""
+                  loading="eager"
+                  width={1000}
+                  height={1000}
+                  className="sm:h-150 md:h-full object-cover"
+                />
+              )}
+            </motion.div>
+          )}
 
-              {/* Price and Rating */}
-              <motion.div
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1, duration: 0.6 }}
-                className="space-y-3"
-              >
-                <div className="flex gap-2 items-center">
-                  <div className="font-semibold text-2xl">
-                    ${product?.price}
+          <div className="space-y-6">
+            {isLoading ? (
+              <ProductDetailsSkeleton />
+            ) : (
+              <>
+                {/* Title and Category*/}
+                <motion.div
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                  className="space-y-4"
+                >
+                  <div className="flex justify-between items-center flex-wrap gap-3">
+                    <h2 className="text-2xl md:text-[28px] font-semibold">
+                      {product?.title}
+                    </h2>
+                    {product && (
+                      <button
+                        className="text-lg mt-1 cursor-pointer"
+                        onClick={() => handleWishlistToggle(product?.id)}
+                      >
+                        {wishlist.some((item) => item.id === product?.id) ? (
+                          <FaHeart />
+                        ) : (
+                          <FaRegHeart />
+                        )}
+                      </button>
+                    )}
                   </div>
-                  {product && (
+                  <p className="text-[#222]/60 font-medium">
+                    Category:{" "}
+                    <span className="capitalize">{product?.category}</span>
+                  </p>
+                </motion.div>
+
+                {/* Price and Rating */}
+                <motion.div
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1, duration: 0.6 }}
+                  className="space-y-3"
+                >
+                  <div className="flex gap-2 items-center">
+                    <div className="font-semibold text-2xl">
+                      ${product?.price}
+                    </div>
+                    {product && (
+                      <>
+                        {product?.discountPercentage > 5 && (
+                          <p className="text-zinc-400 line-through text-lg">
+                            $
+                            {Math.round(
+                              product.price /
+                                (1 - product?.discountPercentage / 100),
+                            ).toFixed(2)}
+                          </p>
+                        )}
+                      </>
+                    )}
+                  </div>
+                  {product?.discountPercentage && (
                     <>
                       {product?.discountPercentage > 5 && (
-                        <p className="text-zinc-400 line-through text-lg">
-                          $
-                          {Math.round(
-                            product.price /
-                              (1 - product?.discountPercentage / 100),
-                          ).toFixed(2)}
-                        </p>
+                        <div className="flex gap-2 items-center">
+                          <MdDiscount className="text-zinc-400" />
+                          {product?.discountPercentage && (
+                            <p className="text-zinc-400">
+                              Save {Math.round(product?.discountPercentage)}%
+                            </p>
+                          )}
+                        </div>
                       )}
                     </>
                   )}
-                </div>
-                {product?.discountPercentage && (
-                  <>
-                    {product?.discountPercentage > 5 && (
-                      <div className="flex gap-2 items-center">
-                        <MdDiscount className="text-zinc-400" />
-                        {product?.discountPercentage && (
-                          <p className="text-zinc-400">
-                            Save {Math.round(product?.discountPercentage)}%
-                          </p>
-                        )}
-                      </div>
-                    )}
-                  </>
-                )}
-                {product?.rating && <Rating rating={product?.rating} />}
-              </motion.div>
+                  {product?.rating && <Rating rating={product?.rating} />}
+                </motion.div>
 
-              {/* Description */}
-              <motion.div
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2, duration: 0.6 }}
-              >
-                <p className="text-lg font-bold">Description:</p>
-                <p className="text-[#222]/70">{product?.description}</p>
-              </motion.div>
+                {/* Description */}
+                <motion.div
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2, duration: 0.6 }}
+                >
+                  <p className="text-lg font-bold">Description:</p>
+                  <p className="text-[#222]/70">{product?.description}</p>
+                </motion.div>
 
-              {/* Input and Cart */}
-              <motion.div
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3, duration: 0.6 }}
-                className="space-y-2.5"
-              >
-                <input
-                  type="number"
-                  min={1}
-                  className="bg-[#ececec] w-full h-9.5 p-3 rounded outline-0 focus:border-2"
-                />
-                <div className="bg-black text-white text-center py-2.5 px-3.5 font-medium">
-                  Add to Cart
-                </div>
-              </motion.div>
+                {/* Input and Cart */}
+                <motion.div
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3, duration: 0.6 }}
+                  className="space-y-2.5"
+                >
+                  <input
+                    type="number"
+                    min={1}
+                    max={product?.stock}
+                    value={count}
+                    onChange={(e: any) => setCount(e.target.value)}
+                    className="bg-[#ececec] w-full h-9.5 p-3 rounded outline-0 focus:border-2"
+                  />
+                  <button
+                    onClick={handleAddToCart}
+                    className="bg-black text-white text-center py-2.5 px-3.5 font-medium w-full cursor-pointer"
+                  >
+                    Add to Cart
+                  </button>
+                </motion.div>
 
-              {/* Shipping Info */}
-              <motion.div
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4, duration: 0.6 }}
-              >
-                <div className="pl-5">
-                  <li className="text-[#222]/60 text-[15px]">
-                    {product?.shippingInformation}
-                  </li>
-                  <li className="text-[#222]/60 text-[15px]">
-                    {product?.returnPolicy}
-                  </li>
-                  <li className="text-[#222]/60 text-[15px]">
-                    {product?.warrantyInformation}
-                  </li>
-                </div>
-              </motion.div>
-            </>
-          )}
+                {/* Shipping Info */}
+                <motion.div
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4, duration: 0.6 }}
+                >
+                  <div className="pl-5">
+                    <li className="text-[#222]/60 text-[15px]">
+                      {product?.shippingInformation}
+                    </li>
+                    <li className="text-[#222]/60 text-[15px]">
+                      {product?.returnPolicy}
+                    </li>
+                    <li className="text-[#222]/60 text-[15px]">
+                      {product?.warrantyInformation}
+                    </li>
+                  </div>
+                </motion.div>
+              </>
+            )}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

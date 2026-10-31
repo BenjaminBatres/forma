@@ -9,19 +9,19 @@ interface IProduct {
   thumbnail: string;
   price: number;
   discountPercentage: number;
-  rating: number
-  category: string
+  rating: number;
+  category: string;
 }
 
 export default function ProductSection() {
   const [products, setProducts] = useState<IProduct[]>([]);
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     async function fetchProducts() {
       const res = await fetch("https://dummyjson.com/products");
       const data = await res.json();
       setProducts(data.products);
-      setIsLoading(false)
+      setIsLoading(false);
     }
     fetchProducts();
   }, []);
@@ -29,10 +29,22 @@ export default function ProductSection() {
   return (
     <section className="py-13 px-5">
       <div className="max-w-7xl mx-auto space-y-13">
-        <Products isLoading={isLoading} category="beauty" products={products}/>
-        <Products isLoading={isLoading} category="fragrances" products={products}/>
-        <Products isLoading={isLoading} category="groceries" products={products}/>
-        <Products isLoading={isLoading} category="furniture" products={products}/>
+        <Products isLoading={isLoading} category="beauty" products={products} />
+        <Products
+          isLoading={isLoading}
+          category="fragrances"
+          products={products}
+        />
+        <Products
+          isLoading={isLoading}
+          category="groceries"
+          products={products}
+        />
+        <Products
+          isLoading={isLoading}
+          category="furniture"
+          products={products}
+        />
       </div>
     </section>
   );
