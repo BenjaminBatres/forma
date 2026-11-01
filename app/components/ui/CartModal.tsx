@@ -101,6 +101,7 @@ export default function CartModal({ isModalOpen, setIsModalOpen }: IProps) {
                 </div>
                 <Link
                   href={"/checkout"}
+                  onClick={() => setIsModalOpen(false)}
                   className="flex justify-center bg-black py-2.75 text-white font-medium px-4"
                 >
                   Continue to Checkout
