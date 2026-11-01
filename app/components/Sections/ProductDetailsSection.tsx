@@ -39,6 +39,7 @@ interface WishlistItem {
 
 export default function ProductDetailsSection({ isLoading, product }: IProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [wishlist, setWishlist] = useState<WishlistItem[]>(() => {
     if (typeof window === "undefined") return [];
 
@@ -49,7 +50,11 @@ export default function ProductDetailsSection({ isLoading, product }: IProps) {
 
   const handleAddToCart = () => {
     if (count > 0) {
-      setIsModalOpen(true);
+      setLoading(true);
+      const timer = setTimeout(() => {
+        setIsModalOpen(true);
+        setLoading(false);
+      }, 500);
       dispatch(
         addToCart({
           id: product?.id,
@@ -59,6 +64,7 @@ export default function ProductDetailsSection({ isLoading, product }: IProps) {
           image: product?.thumbnail,
         }),
       );
+      return () => clearTimeout(timer);
     }
   };
 
@@ -218,7 +224,7 @@ export default function ProductDetailsSection({ isLoading, product }: IProps) {
                     onClick={handleAddToCart}
                     className="bg-black text-white text-center py-2.5 px-3.5 font-medium w-full cursor-pointer"
                   >
-                    Add to Cart
+                    {loading ? "Adding to cart..." : "Add to Cart"}
                   </button>
                 </motion.div>
 
